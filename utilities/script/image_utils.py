@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from PIL import Image
+from collections import Counter
 
 def image_loader(image_path, resize=(64, 64)):
     if image_path.split("/")[-1].split(".")[1].lower() == 'png':
@@ -31,3 +32,9 @@ def load_numpy_dataset(train_path, test_path, k):
     x_test, y_test = test_path["x"], test_path["y"]
 
     return (x_train, y_train), (x_test, y_test)
+
+def dataset_ratio_check(y):
+    counter = Counter(y)
+    for k, v in counter.items():
+        per= v / len(y) * 100
+        print('Class=%d, n=%d (%.3f%%)' % (k, v, per))

@@ -38,13 +38,14 @@ def get_confusion_matrix(y_true, y_pred, save=False, savepath="weight/"):
 
     df_cm = pd.DataFrame(cm_result, label_format, label_format)
     sns.set(font_scale=1.4)
-    sns.heatmap(df_cm, annot=True, annot_kws={"size": 12}, fmt='g')
+    heatmap = sns.heatmap(df_cm, annot=True, annot_kws={"size": 12}, fmt='g')
     plt.show()
 
     print(df_cm)
 
     if save:
-        plt.savefig(savepath)
+        fig = heatmap.get_figure()
+        fig.savefig(savepath)
 
 def get_classification_report(y_true, y_pred):
     label_format = np.load("utilities/label_format.npz")['label']
